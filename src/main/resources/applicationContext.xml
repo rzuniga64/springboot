@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-init-method="init" default-destroy-method="destroy">
+
+    <bean id="person" class="org.spring.boot.intro.Person"
+          init-method="onCreate" destroy-method="onDestroy"
+            factory-method="getInstance">
+        <constructor-arg name="newId" type="int" value="777"/>
+        <constructor-arg name="newName" type="java.lang.String" value="Raul"/>
+        <property name="taxId" value="123"/>
+
+        <!-- An example of dependency injection -->
+        <property name="address" ref="address"/>
+    </bean>
+
+    <!-- create the bean using a bean factory and bean method -->
+    <bean id="person2" class="org.spring.boot.intro.Person"
+          init-method="onCreate" destroy-method="onDestroy"
+          factory-method="createPerson" factory-bean="personfactory">
+
+        <constructor-arg name="newId" type="int" value="321"/>
+        <constructor-arg name="newName" type="java.lang.String" value="Randy" />
+        <property name="taxId" value="321"/>
+        <property name="address" ref="address"/>
+    </bean>
+
+    <bean id="address" class="org.spring.boot.intro.Address">
+        <constructor-arg name="newStreet" value="1000 Main Street"/>
+        <constructor-arg name="newPostcode" value="78701"/>
+    </bean>
+
+    <!-- p namespace is alternative to using property tags -->
+    <bean id="address2" class="org.spring.boot.intro.Address"
+          p:street="1901A Woodland Avenue" p:postcode="78741"/>
+
+    <bean id="personfactory" class="org.spring.boot.intro.PersonFactory"/>
+
+    <bean id="basket" class="org.spring.boot.intro.FruitBasket">
+        <constructor-arg name="newName" value="Fruit basket" /><constructor-arg>
+            <list>
+                <value>apple</value>
+                <value>orange</value>
+                <value>banana</value>
+                <value>watermelon</value>
+                <value>strawberry</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+</beans>

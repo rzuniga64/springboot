@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+
+    <bean id="spel" class="org.spring.boot.spel.Robot2">
+        <property name="id"
+                  value="#{randomText.text?.length()}">
+        </property>
+        <property name="speech"
+                  value="#{'random text: ' + randomText.getText()}">
+        </property>
+    </bean>
+
+    <bean id="randomText"
+          class="org.spring.boot.spel.RandomText">
+    </bean>
+
+</beans>
